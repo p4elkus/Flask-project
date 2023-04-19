@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1>Приветствуем пользователей нашей космической системы очередей!</h1>
+    {% if rooms is defined and rooms|length > 0 %}
+        <div class="room_container align-items-center p-2 m-2 col row-cols-auto">
+            {% for room in rooms %}
+                <div class="room_item card ps-lg-4 p-2 m-2 w-25 align-items-center">
+                    <div class="card-body">
+                        <h5 class="card-title">Комната номер: {{ room["number"] }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Принимает: {{ room["username"] }}</h6>
+                        <p class="card-text">
+                            Текущая очередь:<br>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <b>{{ room["active_ticket"]["visitor_number"] }} - {{room["active_ticket"]["visitor_name"]}}</b>
+                                </li>
+                                {% for ticket in room["active_tickets"] %}
+                                    <li class="list-group-item">{{ticket["visitor_number"]}} - {{ticket["visitor_name"]}}</li>
+                                {% endfor %}
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+    <p>
+        <br><br>
+        <div class="empty-index">
+            <h3>На данный момент нет открытых комнат для посещения.</h3>
+            <a class="text-center" href="/registration">
+                <button class="btn btn-outline-primary btn-lg">Откройте комнату прямо сейчас!</button>
+            </a>
+        </div>
+    </p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Талон на посещение кабинета</h1>
+{% if form.roomnumber.choices is defined and form.roomnumber.choices|length > 0 %}
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.roomnumber.label }}<br>
+        {{ form.roomnumber(class="form-control") }}<br>
+        {% for error in form.roomnumber.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.message.label }}<br>
+        {{ form.message(class="form-control") }}<br>
+        {% for error in form.message.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+</form>
+{% else %}
+<p>
+    <br><br>
+    <div class="empty-index">
+        <h3>На данный момент нет открытых комнат для посещения.</h3>
+        <a class="text-center" href="/registration">
+            <button class="btn btn-outline-primary btn-lg">Откройте комнату прямо сейчас!</button>
+        </a>
+    </div>
+</p>
+{% endif %}
+{% endblock %}

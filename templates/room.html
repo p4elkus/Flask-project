@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1>Кабинет № {{room["number"]}}</h1><br>
+    <div class="room_item">
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                Принимает: {{ room["username"] }}<br>
+            </p>
+            <p>
+                Прием поситителя: <b>
+                {{ room["active_ticket"]["visitor_number"] }} - {{room["active_ticket"]["visitor_name"]}}</b><br>
+                Цель визита:<br>
+                {{room["active_ticket"]["message"]}}<br><br>
+
+                {{ form.message.label }}<br>
+                {{ form.message(class="form-control") }}
+                {% for error in form.message.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+            <p>
+                Очередь:<br>
+            {% for ticket in room["active_tickets"] %}
+                {{ticket["visitor_number"]}} - {{ticket["visitor_name"]}}<br>
+            {% endfor %}
+            </p>
+        </form>
+        <p>
+            <a class="" href="/room/close/{{room['number']}}">
+                <button class="btn btn-primary">Закрыть комнату</button>
+            </a>
+        </p>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+.header{
+    background-color: burlywood;
+}
+
+.nav-link-item:hover{
+    color: white !important;
+}
+
+.empty-index{
+    display:flex;
+    justify-content:space-between;
+}
